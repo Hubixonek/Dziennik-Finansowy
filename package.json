@@ -1,0 +1,27 @@
+{
+  "name": "budgetapp",
+  "version": "1.0.0",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint --ext .js --ignore-path .gitignore ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Hubixonek/Dziennik-Finansowy.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Hubixonek/Dziennik-Finansowy/issues"
+  },
+  "homepage": "https://github.com/Hubixonek/Dziennik-Finansowy#readme",
+  "description": "",
+  "devDependencies": {
+    "eslint": "^8.31.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-promise": "^6.1.1"
+  }
+}
