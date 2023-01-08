@@ -3,32 +3,41 @@
   font-weight: bold;
 }
 
-.container {
+h1 {
   display: flex;
-  justify-content: space-around;
+  flex-direction: column;
+  margin-left: 10px;
 }
 
-.date-form .date {
-  position: relative;
-  right: 150px;
-  bottom: -42px;
-}
-.date-form .p-date {
-  position: relative;
+.funds-form {
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
-  left: -9.5vw;
-  bottom: -5.6vh;
+  margin-top: 5px;
+  width: 75vw;
+}
+.funds-form .input-group-text {
+  width: 6.2vw;
 }
 
-.value-form p {
-  position: relative;
+.input-group {
+  margin-right: 7px;
+}
+
+.save-btn {
   display: flex;
-  justify-content: space-evenly;
-  top: -4vh;
-  left: 2vw;
+  flex-direction: column-reverse;
+}
+.save-btn #save-btn {
+  height: 5vh;
+  width: 4vw;
+  margin-left: 2px;
 }
 
-.text-red {
+.text-red.form-control {
   color: red;
+}
+
+.text-lime.form-control {
+  color: rgb(22, 207, 22);
 }/*# sourceMappingURL=style.css.map */
