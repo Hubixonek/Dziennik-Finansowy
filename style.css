@@ -13,25 +13,28 @@ h1 {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  margin-top: 5px;
-  width: 90vw;
+  width: 70vw;
 }
 .funds-form .input-group-text {
   width: 6.2vw;
 }
 
 .input-group {
-  margin-right: 7px;
+  max-height: 10px;
 }
 
 .save-btn {
+  position: absolute;
   display: flex;
-  flex-direction: column-reverse;
+  flex-direction: row-reverse;
 }
 .save-btn #save-btn {
+  position: relative;
   height: 5vh;
   width: 4vw;
-  margin-left: 2px;
+  margin-top: 20px;
+  left: 1555px;
+  bottom: -15px;
 }
 
 .text-red.form-control {
@@ -40,4 +43,35 @@ h1 {
 
 .text-lime.form-control {
   color: rgb(22, 207, 22);
+}
+
+.saved-datas {
+  position: relative;
+  bottom: -50px;
+  display: flex;
+  justify-content: center;
+}
+.saved-datas .saved-datas-body {
+  position: fixed;
+}
+.saved-datas .saved-datas-body h1 {
+  font-size: 20px;
+  align-items: center;
+}
+.saved-datas .tabela-test {
+  width: 40vw;
+}
+
+#actual-courses {
+  max-height: 5vh;
+}
+
+.courses {
+  display: flex;
+  color: lime;
+  letter-spacing: 1px;
+}
+
+.addDisplay {
+  display: flex;
 }/*# sourceMappingURL=style.css.map */
