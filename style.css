@@ -3,6 +3,12 @@
   font-weight: bold;
 }
 
+html {
+  overflow: visible;
+  height: 960px;
+  margin: auto;
+}
+
 h1 {
   display: flex;
   flex-direction: column;
@@ -48,11 +54,11 @@ h1 {
 .saved-datas {
   position: relative;
   bottom: -50px;
-  display: flex;
+  display: none;
   justify-content: center;
 }
 .saved-datas .saved-datas-body {
-  position: fixed;
+  position: absolute;
 }
 .saved-datas .saved-datas-body h1 {
   font-size: 20px;
@@ -74,4 +80,14 @@ h1 {
 
 .addDisplay {
   display: flex;
+}
+
+.tableValidation {
+  color: red;
+  font-size: 20px;
+  align-items: center;
+}
+
+.cancelButton {
+  cursor: pointer;
 }/*# sourceMappingURL=style.css.map */

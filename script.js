@@ -9,7 +9,10 @@
   const saveBtn = document.getElementById('save-btn');
   const table = document.querySelector('.table-test');
   const tdList = document.querySelector('.saved-datas');
+  const h1 = document.querySelector('.saved-datas-body h1');
+  const cancelIcon = document.querySelector('.fa-times');
   const history = JSON.parse(window.localStorage.getItem('history')) || [];
+
   const API_LINK = 'http://api.nbp.pl/api/exchangerates/tables/C/';
   // const tBodyEl = document.querySelector('tbody');
 
@@ -79,28 +82,58 @@
     const currencyCell = newRow.insertCell(0);
     const courseCell = newRow.insertCell(0);
     const resultCell = newRow.insertCell(0);
-
+    const cancelCell = newRow.insertCell(-1);
     resultCell.innerHTML = item.date;
     courseCell.innerHTML = item.amount;
     currencyCell.innerHTML = item.currency;
     amountCell.innerHTML = item.course;
     dateCell.innerHTML = item.result;
-
+    cancelCell.innerHTML = '';
     tdList.classList.add('addDisplay');
+
+    newRow.addEventListener('mouseenter', () => {
+      const cancelButton = document.createElement('span');
+      cancelButton.textContent = 'X';
+      cancelButton.className = 'cancelButton';
+
+      cancelCell.appendChild(cancelButton);
+      cancelCell.classList.add('cancelCell');
+      cancelButton.addEventListener('click', (event) => {
+        const rowIndex = event.target.closest('tr').rowIndex - 1;
+        history.splice(rowIndex, 1);
+        window.localStorage.setItem('history', JSON.stringify(history));
+        event.target.closest('tr').remove();
+      });
+    });
+
+    newRow.addEventListener('mouseleave', () => {
+      cancelCell.textContent = '';
+    });
   };
 
-  function saveDatas() {
-    const datas = {
+  function saveTransactionDatas() {
+    const data = {
       date: date.value,
       amount: amount.value,
       currency: currencyText.innerHTML,
       course: course.value,
       result: result.value,
     };
+    // Validation for not add empty string to tabel
+    if (Object.values(data).some((value) => value.trim() === '')) {
+      // H1 is text "saved datas" above the table
+      h1.classList.add('tableValidation');
+      const tableValidation = document.querySelector('.tableValidation');
+      tableValidation.textContent = 'Proszę uzupełnij pozostałe dane!';
 
-    history.push(datas);
+      return;
+    }
+    h1.classList.remove('tableValidation');
+    h1.textContent = 'Zapisane dane';
+    history.push(data);
     window.localStorage.setItem('history', JSON.stringify(history));
-    addTableRow(datas);
+
+    addTableRow(data);
   }
 
   window.addEventListener('load', () => {
@@ -112,7 +145,7 @@
     parsedData.forEach(addTableRow);
   });
   const prepareDOMEvents = () => {
-    saveBtn.addEventListener('click', saveDatas);
+    saveBtn.addEventListener('click', saveTransactionDatas);
     result.addEventListener('keyup', secondCalculation);
     amount.addEventListener('keyup', calculation);
     course.addEventListener('keyup', calculation);
