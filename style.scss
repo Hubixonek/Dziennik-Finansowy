@@ -69,7 +69,10 @@ h1 {
 	align-items: center;
 }
 .cancelButton {
+	display: flex;
+	justify-content: center;
 	cursor: pointer;
+	
 }
 
 @media screen and (min-width: 370px) and (max-width: 667px) {
@@ -97,7 +100,7 @@ h1 {
 		position: relative;
 		bottom: -50px;
 		display: none;
-		width: 110%;
+		width: 115%;
 
 		h1 {
 			font-size: 20px;

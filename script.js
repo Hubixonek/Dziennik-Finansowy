@@ -11,7 +11,7 @@
   const tdList = document.querySelector('.saved-datas');
   const h1 = document.querySelector('.saved-datas-body h1');
   const history = JSON.parse(window.localStorage.getItem('history')) || [];
-
+  const summaryResults = document.querySelector('.tescik');
   const API_LINK = 'http://api.nbp.pl/api/exchangerates/tables/C/';
   // const tBodyEl = document.querySelector('tbody');
 
@@ -73,6 +73,8 @@
       updateCurrencyText();
     }
   });
+  let total = 0;
+  let lastCurrency;
 
   const addTableRow = (item) => {
     const newRow = table.insertRow(table.length);
@@ -95,6 +97,11 @@
 
     cancelCell.innerHTML = '';
     tdList.classList.add('addDisplay');
+
+    total += parseFloat(item.result);
+    lastCurrency = item.currency;
+
+    summaryResults.innerHTML = `${total} &nbsp &nbsp ${lastCurrency}`;
 
     newRow.addEventListener('mouseenter', () => {
       const cancelButton = document.createElement('span');
