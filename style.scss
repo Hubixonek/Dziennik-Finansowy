@@ -72,7 +72,6 @@ h1 {
 	display: flex;
 	justify-content: center;
 	cursor: pointer;
-	
 }
 
 @media screen and (min-width: 370px) and (max-width: 667px) {
@@ -93,14 +92,14 @@ h1 {
 		display: flex;
 		position: absolute;
 		right: 40.3%;
-		bottom: 57%;
+		bottom: 55%;
 		height: 2.5rem;
 	}
 	.saved-datas {
 		position: relative;
 		bottom: -50px;
 		display: none;
-		width: 115%;
+		width: 127%;
 
 		h1 {
 			font-size: 20px;
@@ -109,7 +108,5 @@ h1 {
 	}
 	.addDisplay {
 		display: flex;
-		
 	}
-	
 }
