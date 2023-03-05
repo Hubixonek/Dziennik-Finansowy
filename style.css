@@ -1,12 +1,11 @@
 * {
   font-family: "Oswald", sans-serif;
   font-weight: bold;
+  box-sizing: border-box;
 }
 
 html {
   overflow: visible;
-  height: 960px;
-  margin: auto;
 }
 
 h1 {
@@ -19,7 +18,7 @@ h1 {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  width: 70vw;
+  width: 100%;
 }
 .funds-form .input-group-text {
   width: 6.2vw;
@@ -31,16 +30,9 @@ h1 {
 
 .save-btn {
   position: absolute;
-  display: flex;
-  flex-direction: row-reverse;
-}
-.save-btn #save-btn {
-  position: relative;
-  height: 5vh;
-  width: 4vw;
-  margin-top: 20px;
-  left: 1555px;
-  bottom: -15px;
+  right: 21.3%;
+  bottom: 80%;
+  height: 5.3rem;
 }
 
 .text-red.form-control {
@@ -52,20 +44,16 @@ h1 {
 }
 
 .saved-datas {
+  display: none;
   position: relative;
-  bottom: -50px;
+  bottom: -80px;
   display: none;
   justify-content: center;
+  width: 100%;
 }
-.saved-datas .saved-datas-body {
-  position: absolute;
-}
-.saved-datas .saved-datas-body h1 {
+.saved-datas h1 {
   font-size: 20px;
   align-items: center;
-}
-.saved-datas .tabela-test {
-  width: 40vw;
 }
 
 #actual-courses {
@@ -90,4 +78,40 @@ h1 {
 
 .cancelButton {
   cursor: pointer;
+}
+
+@media screen and (min-width: 370px) and (max-width: 667px) {
+  .funds-form {
+    display: inline-flex;
+    flex-wrap: wrap;
+    height: 50vh;
+    justify-content: center;
+    width: 60%;
+  }
+  .funds-form .input-group-text {
+    width: 50%;
+  }
+  .input-group {
+    max-height: 6px;
+  }
+  .save-btn {
+    display: flex;
+    position: absolute;
+    right: 40.3%;
+    bottom: 47.5%;
+    height: 2.5rem;
+  }
+  .saved-datas {
+    position: relative;
+    bottom: -50px;
+    display: none;
+    width: 110%;
+  }
+  .saved-datas h1 {
+    font-size: 20px;
+    align-items: center;
+  }
+  .addDisplay {
+    display: flex;
+  }
 }/*# sourceMappingURL=style.css.map */

@@ -10,7 +10,6 @@
   const table = document.querySelector('.table-test');
   const tdList = document.querySelector('.saved-datas');
   const h1 = document.querySelector('.saved-datas-body h1');
-  const cancelIcon = document.querySelector('.fa-times');
   const history = JSON.parse(window.localStorage.getItem('history')) || [];
 
   const API_LINK = 'http://api.nbp.pl/api/exchangerates/tables/C/';
@@ -45,7 +44,7 @@
     }
   };
   // Multiplying the result by the curse
-  const secondCalculation = () => {
+  const multiplyingResultByTheCurse = () => {
     if (result.value) {
       amount.value = result.value * course.value;
     }
@@ -77,17 +76,23 @@
 
   const addTableRow = (item) => {
     const newRow = table.insertRow(table.length);
-    const dateCell = newRow.insertCell(0);
+    const resultCell = newRow.insertCell(0);
     const amountCell = newRow.insertCell(0);
     const currencyCell = newRow.insertCell(0);
     const courseCell = newRow.insertCell(0);
-    const resultCell = newRow.insertCell(0);
+    const currentlyCell = newRow.insertCell(-1);
+    const summaryCell = newRow.insertCell(-1);
     const cancelCell = newRow.insertCell(-1);
-    resultCell.innerHTML = item.date;
+    const dateCell = newRow.insertCell(0);
+
+    currentlyCell.innerHTML = '';
+    resultCell.innerHTML = item.result;
     courseCell.innerHTML = item.amount;
     currencyCell.innerHTML = item.currency;
     amountCell.innerHTML = item.course;
-    dateCell.innerHTML = item.result;
+    dateCell.innerHTML = item.date;
+    summaryCell.innerHTML = '';
+
     cancelCell.innerHTML = '';
     tdList.classList.add('addDisplay');
 
@@ -146,7 +151,7 @@
   });
   const prepareDOMEvents = () => {
     saveBtn.addEventListener('click', saveTransactionDatas);
-    result.addEventListener('keyup', secondCalculation);
+    result.addEventListener('keyup', multiplyingResultByTheCurse);
     amount.addEventListener('keyup', calculation);
     course.addEventListener('keyup', calculation);
     currencyOne.addEventListener('change', updateCurrencyText);

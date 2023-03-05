@@ -1,11 +1,10 @@
 * {
 	font-family: 'Oswald', sans-serif;
 	font-weight: bold;
+	box-sizing: border-box;
 }
-html{
-	overflow:visible;
-	height: 960px;
-	margin: auto;
+html {
+	overflow: visible;
 }
 h1 {
 	display: flex;
@@ -16,7 +15,7 @@ h1 {
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
-	width: 70vw;
+	width: 100%;
 	.input-group-text {
 		width: 6.2vw;
 	}
@@ -26,16 +25,12 @@ h1 {
 }
 .save-btn {
 	position: absolute;
-	display: flex;
-	flex-direction: row-reverse;
-	#save-btn {
-		position: relative;
-		height: 5vh;
-		width: 4vw;
-		margin-top: 20px;
-		left: 1555px;
-		bottom: -15px;
-	}
+	right: 21.3%;
+	bottom: 80%;
+	height: 5.3rem;
+	// #save-btn{
+
+	// }
 }
 .text-red.form-control {
 	color: red;
@@ -44,19 +39,16 @@ h1 {
 	color: rgb(22, 207, 22);
 }
 .saved-datas {
+	display: none;
 	position: relative;
-	bottom: -50px;
+	bottom: -80px;
 	display: none;
 	justify-content: center;
-	.saved-datas-body {
-		position: absolute;
-		h1{
-			font-size: 20px;
-			align-items: center;
-		}
-	}
-	.tabela-test {
-		width: 40vw;
+	width: 100%;
+
+	h1 {
+		font-size: 20px;
+		align-items: center;
 	}
 }
 
@@ -68,16 +60,53 @@ h1 {
 	color: lime;
 	letter-spacing: 1px;
 }
-.addDisplay{
+.addDisplay {
 	display: flex;
 }
-.tableValidation{
-	
+.tableValidation {
 	color: red;
 	font-size: 20px;
 	align-items: center;
 }
-.cancelButton{
+.cancelButton {
 	cursor: pointer;
 }
 
+@media screen and (min-width: 370px) and (max-width: 667px) {
+	.funds-form {
+		display: inline-flex;
+		flex-wrap: wrap;
+		height: 50vh;
+		justify-content: center;
+		width: 60%;
+		.input-group-text {
+			width: 50%;
+		}
+	}
+	.input-group {
+		max-height: 6px;
+	}
+	.save-btn {
+		display: flex;
+		position: absolute;
+		right: 40.3%;
+		bottom: 47.5%;
+		height: 2.5rem;
+	}
+	.saved-datas {
+		position: relative;
+		bottom: -50px;
+		display: none;
+		width: 110%;
+
+		h1 {
+			font-size: 20px;
+			align-items: center;
+		}
+	}
+	.addDisplay {
+		display: flex;
+		
+	}
+	
+}
