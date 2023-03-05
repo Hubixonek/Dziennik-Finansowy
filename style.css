@@ -60,6 +60,16 @@ h1 {
   max-height: 5vh;
 }
 
+#api-courses {
+  color: rgb(255, 0, 0);
+  font-size: 16px;
+  position: absolute;
+  justify-content: center;
+  width: 100px;
+  right: 10px;
+  display: flex;
+}
+
 .courses {
   display: flex;
   color: lime;
@@ -80,6 +90,14 @@ h1 {
   display: flex;
   justify-content: center;
   cursor: pointer;
+}
+
+.validation-info {
+  position: relative;
+  bottom: -100px;
+  display: flex;
+  justify-content: center;
+  color: rgb(253, 0, 0);
 }
 
 @media screen and (min-width: 370px) and (max-width: 667px) {

@@ -11,24 +11,30 @@
   const tdList = document.querySelector('.saved-datas');
   const h1 = document.querySelector('.saved-datas-body h1');
   const history = JSON.parse(window.localStorage.getItem('history')) || [];
-  const summaryResults = document.querySelector('.tescik');
+  const summaryResults = document.querySelector('.summaryResults');
+  const currentlyValue = document.getElementById('api-courses');
   const API_LINK = 'http://api.nbp.pl/api/exchangerates/tables/C/';
+
   // const tBodyEl = document.querySelector('tbody');
 
-  async function fetchRates() {
+  async function fetchRates(currencyCode) {
     try {
       const response = await fetch(API_LINK);
       const data = await response.json();
-      const currencys = data[0].rates;
-      console.log(currencys);
-      // znalezc obiekt za pomoca property
-    } catch {
-      console.error('błąd');
+      const currencyRate = data[0].rates.find((rate) => rate.code === currencyCode);
+      currentlyValue.value = currencyRate.bid;
+    } catch (error) {
+      console.error('Wystąpił błąd:', error);
     }
   }
-  fetchRates();
+
+  currencyTwo.addEventListener('change', () => {
+    const selectedCurrency = currencyTwo.value;
+    fetchRates(selectedCurrency);
+  });
+
   // Multiplying amount and course to get result
-  const calculation = () => {
+  const calculationAmountByCourse = () => {
     if (!amount.value) {
       result.value = 'Wpisz kwotę!';
       result.classList.remove('text-lime');
@@ -43,6 +49,7 @@
       result.value = amount.value * course.value;
     }
   };
+
   // Multiplying the result by the curse
   const multiplyingResultByTheCurse = () => {
     if (result.value) {
@@ -75,7 +82,7 @@
   });
   let total = 0;
   let lastCurrency;
-
+  let lastCurrently;
   const addTableRow = (item) => {
     const newRow = table.insertRow(table.length);
     const resultCell = newRow.insertCell(0);
@@ -87,7 +94,7 @@
     const cancelCell = newRow.insertCell(-1);
     const dateCell = newRow.insertCell(0);
 
-    currentlyCell.innerHTML = '';
+    currentlyCell.innerHTML = item.currently;
     resultCell.innerHTML = item.result;
     courseCell.innerHTML = item.amount;
     currencyCell.innerHTML = item.currency;
@@ -99,9 +106,9 @@
     tdList.classList.add('addDisplay');
 
     total += parseFloat(item.result);
-    lastCurrency = item.currency;
-
-    summaryResults.innerHTML = `${total} &nbsp &nbsp ${lastCurrency}`;
+    lastCurrency = currencyTwo.value;
+    lastCurrently = currentlyValue.value;
+    summaryResults.innerHTML = `${total} &nbsp &nbsp ${lastCurrency} &nbsp &nbsp ${lastCurrently}`;
 
     newRow.addEventListener('mouseenter', () => {
       const cancelButton = document.createElement('span');
@@ -130,6 +137,7 @@
       currency: currencyText.innerHTML,
       course: course.value,
       result: result.value,
+      currently: currentlyValue.value,
     };
     // Validation for not add empty string to tabel
     if (Object.values(data).some((value) => value.trim() === '')) {
@@ -159,8 +167,8 @@
   const prepareDOMEvents = () => {
     saveBtn.addEventListener('click', saveTransactionDatas);
     result.addEventListener('keyup', multiplyingResultByTheCurse);
-    amount.addEventListener('keyup', calculation);
-    course.addEventListener('keyup', calculation);
+    amount.addEventListener('keyup', calculationAmountByCourse);
+    course.addEventListener('keyup', calculationAmountByCourse);
     currencyOne.addEventListener('change', updateCurrencyText);
     currencyTwo.addEventListener('change', updateCurrencyText);
   };

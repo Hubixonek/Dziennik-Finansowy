@@ -30,6 +30,11 @@
           <option value="PLN">PLN</option>
           <option value="EUR">EUR</option>
           <option value="USD">USD</option>
+          <option value="CHF">CHF</option>
+          <option value="AUD">AUD</option>
+          <option value="SEK">SEK</option>
+          <option value="CZK">CZK</option>
+          <option value="GBP">GBP</option>
         </select>
       </div>
       <div class="input-group">
@@ -40,9 +45,13 @@
       <div class="input-group">
         <label class="input-group-text">Na</label>
         <select class="form-select" id="currencyTwo">
-          <option value="PLN">PLN</option>
           <option value="EUR">EUR</option>
           <option value="USD">USD</option>
+          <option value="CHF">CHF</option>
+          <option value="AUD">AUD</option>
+          <option value="SEK">SEK</option>
+          <option value="CZK">CZK</option>
+          <option value="GBP">GBP</option>
         </select>
       </div>
       <div class="input-group">
@@ -51,6 +60,7 @@
       </div>
       <div class="input-group">
         <span class="input-group-text" id="actual-courses">Aktualnie</span>
+        <input type="text" class="form-control" id="api-courses" readonly>
 
       </div>
     </div>
@@ -59,6 +69,7 @@
   <div class="save-btn">
     <button class="btn btn-primary" id="save-btn" type="submit">Zapisz</button>
   </div>
+
   <div class="saved-datas">
     <div class="saved-datas-body">
       <h1>Zapisane dane</h1>
@@ -85,7 +96,7 @@
               <th scope="col">Podsumowanie</th>
             </tr>
             <tr>
-              <td class="tescik"></td>
+              <td class="summaryResults"></td>
             </tr>
 
           </thead>
