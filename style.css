@@ -62,11 +62,11 @@ h1 {
 
 #api-courses {
   color: rgb(255, 0, 0);
-  font-size: 16px;
   position: absolute;
   justify-content: center;
   width: 100px;
-  right: 10px;
+  height: 34px;
+  right: 9px;
   display: flex;
 }
 
@@ -118,7 +118,7 @@ h1 {
     display: flex;
     position: absolute;
     right: 40.3%;
-    bottom: 50%;
+    bottom: 46.5%;
     height: 2.5rem;
   }
   .saved-datas {

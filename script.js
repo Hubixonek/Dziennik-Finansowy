@@ -13,7 +13,7 @@
   const history = JSON.parse(window.localStorage.getItem('history')) || [];
   const summaryResults = document.querySelector('.summaryResults');
   const currentlyValue = document.getElementById('api-courses');
-  const API_LINK = 'http://api.nbp.pl/api/exchangerates/tables/C/';
+  const API_LINK = 'https://api.nbp.pl/api/exchangerates/tables/C/';
 
   // const tBodyEl = document.querySelector('tbody');
 
