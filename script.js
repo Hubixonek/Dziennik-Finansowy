@@ -1,3 +1,17 @@
+const calculationLossesAndProfitsOfCurrencys = (result, rateAmountFromApi) => {
+  let losses;
+  let profits;
+  if (result.value > rateAmountFromApi) {
+    profits = (result.value - rateAmountFromApi).toFixed(3);
+    console.log(profits, 'zysk');
+  } else {
+    losses = (rateAmountFromApi - result.value).toFixed(2);
+    console.log(losses, 'strata');
+  }
+
+  return { profits, losses };
+};
+
 (() => {
   const amount = document.getElementById('amount');
   const course = document.getElementById('course');
@@ -12,25 +26,40 @@
   const h1 = document.querySelector('.saved-datas-body h1');
   const history = JSON.parse(window.localStorage.getItem('history')) || [];
   const summaryResults = document.querySelector('.summaryResults');
-  const currentlyValue = document.getElementById('api-courses');
+  const currentValue = document.getElementById('api-courses');
   const API_LINK = 'https://api.nbp.pl/api/exchangerates/tables/C/';
+  const MISSING_RATE_FOR_PLN = 1;
+  let rateAmountFromApi = '';
 
   // const tBodyEl = document.querySelector('tbody');
 
-  async function fetchRates(currencyCode) {
+  async function fetchRates() {
     try {
       const response = await fetch(API_LINK);
       const data = await response.json();
-      const currencyRate = data[0].rates.find((rate) => rate.code === currencyCode);
-      currentlyValue.value = currencyRate.bid;
+      const currencyTwoRate = data[0].rates.find((rate) => rate.code === currencyTwo.value);
+      const currencyOneRate = data[0].rates.find((rate) => rate.code === currencyOne.value);
+      const rate = (currencyOneRate?.ask || MISSING_RATE_FOR_PLN) / (currencyTwoRate?.ask
+        || MISSING_RATE_FOR_PLN);
+
+      currentValue.value = rate.toFixed(2);
+      rateAmountFromApi = amount.value * currentValue.value;
+      // profits && console.log(profits);
+      // losses && console.log(losses);
+
+      // const currencys = data[0].rates;
+      // console.log(currencys);
     } catch (error) {
       console.error('Wystąpił błąd:', error);
     }
   }
-
+  fetchRates();
+  currencyOne.addEventListener('change', () => {
+    fetchRates();
+  });
+  // 189,2
   currencyTwo.addEventListener('change', () => {
-    const selectedCurrency = currencyTwo.value;
-    fetchRates(selectedCurrency);
+    fetchRates();
   });
 
   // Multiplying amount and course to get result
@@ -40,20 +69,20 @@
       result.classList.remove('text-lime');
       result.classList.add('text-red');
     } else if (!course.value) {
-      result.value = 'Wpisz kurs!';
+      result.placeholder = 'Wpisz kurs';
       result.classList.remove('text-lime');
       result.classList.add('text-red');
     } else {
       result.classList.remove('text-red');
       result.classList.add('text-lime');
-      result.value = amount.value * course.value;
+      result.value = (amount.value * course.value).toFixed(2);
     }
   };
 
   // Multiplying the result by the curse
   const multiplyingResultByTheCurse = () => {
     if (result.value) {
-      amount.value = result.value * course.value;
+      amount.value = (result.value * course.value).toFixed(2);
     }
   };
   const updateCurrencyText = () => {
@@ -100,14 +129,26 @@
     currencyCell.innerHTML = item.currency;
     amountCell.innerHTML = item.course;
     dateCell.innerHTML = item.date;
-    summaryCell.innerHTML = '';
+    if (item.isProfit) {
+      summaryCell.innerHTML = `+ ${JSON.stringify(item.isProfit).replace(/"/g, '')}`;
+      summaryCell.classList.add('green');
+      summaryCell.classList.remove('red');
+    } else if (item.isLoss) {
+      summaryCell.innerHTML = `- ${JSON.stringify(item.isLoss).replace(/"/g, '')}`;
+      summaryCell.classList.add('red');
+      summaryCell.classList.remove('green');
+    } else {
+      summaryCell.innerHTML = '';
+      summaryCell.classList.remove('green');
+      summaryCell.classList.remove('red');
+    }
 
     cancelCell.innerHTML = '';
     tdList.classList.add('addDisplay');
 
     total += parseFloat(item.result);
     lastCurrency = currencyTwo.value;
-    lastCurrently = currentlyValue.value;
+    lastCurrently = currentValue.value;
     summaryResults.innerHTML = `${total} &nbsp &nbsp ${lastCurrency} &nbsp &nbsp ${lastCurrently}`;
 
     newRow.addEventListener('mouseenter', () => {
@@ -131,16 +172,20 @@
   };
 
   function saveTransactionDatas() {
+    const profitsAndLosses = calculationLossesAndProfitsOfCurrencys(result, rateAmountFromApi);
     const data = {
       date: date.value,
       amount: amount.value,
       currency: currencyText.innerHTML,
       course: course.value,
       result: result.value,
-      currently: currentlyValue.value,
+      currently: currentValue.value,
+      isLoss: profitsAndLosses.losses,
+      isProfit: profitsAndLosses.profits,
     };
+
     // Validation for not add empty string to tabel
-    if (Object.values(data).some((value) => value.trim() === '')) {
+    if (Object.values(data).some((value) => value === '')) {
       // H1 is text "saved datas" above the table
       h1.classList.add('tableValidation');
       const tableValidation = document.querySelector('.tableValidation');
